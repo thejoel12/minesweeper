@@ -32,9 +32,9 @@ const generatePlayerBoard = (numberOfRows, numberOfColumns) => {
   return board;
 }
 
-console.log(generatePlayerBoard(2,3));
 
-const generateBombBoard = (numberOfRows, numberOfColumns, numberOfBombs => {
+
+const generateBombBoard = (numberOfRows, numberOfColumns, numberOfBombs) => {
   let board = [];
   //row loop
   for (let i = 0; i < numberOfRows; i++) {
@@ -47,15 +47,26 @@ const generateBombBoard = (numberOfRows, numberOfColumns, numberOfBombs => {
   }
   let numberOfBombsPlaced = 0;
   while (numberOfBombsPlaced < numberOfBombs) {
-    
-    let randomRowIndex = Math.Floor(Math.random() * numberOfRows);
-    let randomColumnIndex = Math.Floor(Math.random() * numberOfColumns);
 
-
+    const randomRowIndex = Math.floor(Math.random() * numberOfRows);
+    const randomColumnIndex = Math.floor(Math.random() * numberOfColumns);
+    board[randomRowIndex][randomColumnIndex] = 'B';
+    numberOfBombsPlaced++;
+    //will fix the fact that code in while loop can place bombs on already existing bombs. Will fix shortly.
 
   }
 
-
-
   return board;
 }
+
+const printBoard = board => {
+  console.log(board.map(row => row.join(' | ')).join('\n'));
+}
+
+let bombBoard = generateBombBoard(3,4,5);
+let playerBoard = generatePlayerBoard(3, 3);
+
+console.log('Player Board ');
+printBoard(playerBoard);
+console.log('Bomb Board: ');
+printBoard(bombBoard);
